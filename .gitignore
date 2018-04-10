@@ -1,0 +1,6 @@
+*.swp
+*.pyc
+.idea
+__pycache__
+dev.ini
+scribble.py
