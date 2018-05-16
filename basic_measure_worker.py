@@ -47,10 +47,6 @@ if not configs.read(CONFIG_FILENAME):
 
 helper.mongo.connect(configs["MONGODB"])
 
-section_rabbit = configs['RABBITMQ']
-
-
-
 def update_self_then_restart():
     helper.mongo.close()
     if WORKER_ID == "dev":
@@ -139,9 +135,9 @@ helper.eventlog.set_worker_id(WORKER_ID)
 if WORKER_ID != "dev":
     helper.eventlog.trace("Worker %s started (%d)" % (WORKER_ID, APP_VERSION))
 
-logger.debug("Worker [%s] started (%d, %s)", WORKER_ID, APP_VERSION, section_rabbit['uri'])
+logger.debug("Worker [%s] started (%d, %s)", WORKER_ID, APP_VERSION, os.environ["MQ_URL"])
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
     # handler_basic.process_basic_measurements(1, {"newsId":"02100101.20160630120514682"})
     # handler_score.process_score_all(1, {"newsId":"02100101.20160630120514682"})
     # on_task({"cmd":"basic", "ver":"1", "newsId":"01101001.20160601133622578"})
@@ -154,16 +150,16 @@ if __name__ == '__main__':
     #     #print(doc["news_id"], doc["title"])
 
 # 변경한 가중치 적용 -> 처리기사(news)
-    coll_news = helper.mongo.get_collection("news")
-    docs = coll_news.find({})
-    for doc in docs:
-        handler_basic.process_basic_measurements(1, {"newsId":doc["newsId"]})
+#     coll_news = helper.mongo.get_collection("news")
+#     docs = coll_news.find({})
+#     for doc in docs:
+#         handler_basic.process_basic_measurements(1, {"newsId":doc["newsId"]})
         # print(doc["newsId"], doc["title"])
 
 try:
     helper.rabbit.set_notice_handler(on_notice)
     helper.rabbit.set_task_handler(on_task)
-    helper.rabbit.run(section_rabbit['uri'])
+    helper.rabbit.run(os.environ["MQ_URL"])
 except KeyboardInterrupt:
     helper.rabbit.stop()
 
