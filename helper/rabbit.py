@@ -57,7 +57,7 @@ def on_notice_channel_open(channel):
     rb_notice_channel = channel
     rb_notice_channel.add_on_close_callback(on_notice_channel_closed)
     rb_notice_channel.exchange_declare(callback=on_notice_channel_declared,
-                                       exchange=NTRUST_EXCHANGE_NAME, type='fanout')
+                                       exchange=NTRUST_EXCHANGE_NAME, exchange_type='fanout')
 
 
 def on_notice_channel_declared(frame):
