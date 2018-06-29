@@ -17,7 +17,7 @@ from ntrust import anonpred
 import ntrust.content
 import ntrust.byline
 
-COLLNAME_CM_NEWS = "cm2016"
+COLLNAME_NEWS_SRC = "news_src"
 COLLNAME_NEWS = "news"
 COLLNAME_NEWS_ENTITY = "news_entity"
 
@@ -249,7 +249,7 @@ def get_metric_update_dicts(params):
 def process_basic_measurements(ver, param):
     news_id = param["newsId"]
 
-    coll_src = helper.mongo.get_collection(COLLNAME_CM_NEWS)
+    coll_src = helper.mongo.get_collection(COLLNAME_NEWS_SRC)
     coll_dst = helper.mongo.get_collection(COLLNAME_NEWS)
     coll_ett = helper.mongo.get_collection(COLLNAME_NEWS_ENTITY)
 

@@ -4,7 +4,7 @@ import helper
 import ntrust.byline
 import ntrust.content
 
-COLLNAME_CM_NEWS = "cm2016"
+COLLNAME_NEWS_SRC = "news_src"
 COLLNAME_NEWS = "news"
 
 def process_score_byline(ver, param):
@@ -44,7 +44,7 @@ def process_score_byline(ver, param):
 def process_byline_extract(ver, param):
     news_id = param["newsId"]
 
-    coll_src = helper.mongo.get_collection(COLLNAME_CM_NEWS)
+    coll_src = helper.mongo.get_collection(COLLNAME_NEWS_SRC)
     coll_dst = helper.mongo.get_collection(COLLNAME_NEWS)
 
     doc = coll_src.find_one({"newsitem_id":news_id})
