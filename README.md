@@ -1,4 +1,2 @@
-* ntrust-docker에 의해 로딩되는 워커.  
-* rabbitmq로부터 메시지를 받아 데이터를 가공합니다. 
-* env.ini에 각종 서버 설정이 정리되어 있고, 내용은 모두 임의의 값입니다.
-* mongodb, rabbitmq 등을 연동하고 있으며, 임의의 값들을 직접 구성한 서버에 맞게 작성해서 연동해야 합니다.
+* [ntrust-docker](https://github.com/KPF-newstrust/ntrust-docker)에 의해 로딩되는 워커입니다.  
+* rabbitmq로부터 메시지를 받아 데이터를 가공합니다.
