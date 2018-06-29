@@ -31,7 +31,5 @@ def process_score_all(ver, param):
 
 if __name__ == "__main__":
     print("yes, main")
-    configs = configparser.ConfigParser()
-    configs.read("env.ini")
-    helper.mongo.connect(configs["MONGODB"])
+    helper.mongo.connect()
     process_score_all(0, {"newsId":"01100101.20160601061030422"})

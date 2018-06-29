@@ -1,17 +1,16 @@
+import os
 import logging
 import pymongo
 
 mgo_cli = None
 mgo_db = None
 
-def connect(config):
+def connect():
     global mgo_cli, mgo_db
-    if "uri" not in config:
-        raise SystemExit("Invalid mongo config section")
-    mgo_cli = pymongo.MongoClient(config['uri'])
-    mgo_db = mgo_cli[config['db']]
+    mgo_cli = pymongo.MongoClient(os.environ["MONGO_URL"])
+    mgo_db = mgo_cli[os.environ["MONGO_DB"]]
     mgo_cli.server_info() # will raise exception if failed
-    logging.info("Successfully connected to MongoDB %s", config['uri'])
+    logging.info("Successfully connected to MongoDB %s", os.environ["MONGO_URL"])
 
 def close():
     global mgo_cli, mgo_db

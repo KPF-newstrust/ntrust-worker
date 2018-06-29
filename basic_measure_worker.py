@@ -32,20 +32,13 @@ if "WORKER_ID" in os.environ:
 else:
     raise SystemExit("Environment variable 'WORKER_ID' is not found.")
 
-CONFIG_FILENAME = "env.ini"
 if WORKER_ID == "dev":
     logging.config.fileConfig('logging.conf')
-    CONFIG_FILENAME = "dev.ini"
     helper.eventlog.enable_local_echo()
 
 logger = logging.getLogger("basic")
 
-# Load configuration variables
-configs = configparser.ConfigParser()
-if not configs.read(CONFIG_FILENAME):
-    raise SystemExit("Config file loading failed: " + CONFIG_FILENAME)
-
-helper.mongo.connect(configs["MONGODB"])
+helper.mongo.connect()
 
 def update_self_then_restart():
     helper.mongo.close()
